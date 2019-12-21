@@ -6,11 +6,13 @@ import io.ktor.application.install
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
-import net.muniere.ponita.domain.Message
+import net.muniere.ponita.api.controller.RootController
+import net.muniere.ponita.api.dependency.DependencyGraph
+import org.koin.ktor.ext.Koin
+import org.koin.ktor.ext.inject
 
 fun main(args: Array<String>): Unit {
     EngineMain.main(args)
@@ -19,6 +21,9 @@ fun main(args: Array<String>): Unit {
 @Suppress("UNUSED_PARAMETER")
 @kotlin.jvm.JvmOverloads
 fun Application.launch(testing: Boolean = false) {
+    install(Koin) {
+        modules(DependencyGraph.build())
+    }
     install(ContentNegotiation) {
         gson()
     }
@@ -28,9 +33,11 @@ fun Application.launch(testing: Boolean = false) {
 @Suppress("UNUSED_PARAMETER")
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+    val ctrl: RootController by inject()
+
     routing {
         get("/") {
-            this.call.respond(Message("Hello, World"))
+            ctrl.index(call)
         }
     }
 }

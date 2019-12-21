@@ -8,6 +8,10 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
+import net.muniere.ponita.web.controller.RootController
+import net.muniere.ponita.web.dependency.DependencyGraph
+import org.koin.ktor.ext.Koin
+import org.koin.ktor.ext.inject
 
 fun main(args: Array<String>): Unit {
     EngineMain.main(args)
@@ -16,15 +20,20 @@ fun main(args: Array<String>): Unit {
 @Suppress("UNUSED_PARAMETER")
 @kotlin.jvm.JvmOverloads
 fun Application.launch(testing: Boolean = false) {
+    install(Koin) {
+        modules(DependencyGraph.build())
+    }
     install(CallLogging)
 }
 
 @Suppress("UNUSED_PARAMETER")
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+    val ctrl: RootController by inject()
+
     routing {
         get("/") {
-            this.call.respondText("Hello, World")
+            ctrl.index(call)
         }
     }
 }

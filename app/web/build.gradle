@@ -13,11 +13,16 @@ repositories {
 dependencies {
     implementation project(':lib:domain')
     implementation project(':lib:storage')
+    implementation project(':lib:service')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-locations:$ktor_version"
     implementation "io.ktor:ktor-gson:$ktor_version"
+
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-core-ext:$koin_version"
+    implementation "org.koin:koin-ktor:$koin_version"
 
     implementation "ch.qos.logback:logback-classic:$logback_version"
 

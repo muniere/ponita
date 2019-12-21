@@ -1,0 +1,15 @@
+apply plugin: 'kotlin'
+
+group 'net.muniere.ponita.service'
+version '0.1.0'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation project(':lib:domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
