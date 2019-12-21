@@ -1,0 +1,4 @@
+rootProject.name = "ponita"
+
+include(':lib')
+include(':app')
