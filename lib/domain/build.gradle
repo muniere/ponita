@@ -1,6 +1,6 @@
 apply plugin: 'kotlin'
 
-group 'net.muniere.ponita.lib'
+group 'net.muniere.ponita.domain'
 version '0.1.0'
 
 repositories {

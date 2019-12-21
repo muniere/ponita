@@ -1,4 +1,5 @@
 rootProject.name = "ponita"
 
-include(':lib')
+include(':lib:domain')
+include(':lib:storage')
 include(':app')

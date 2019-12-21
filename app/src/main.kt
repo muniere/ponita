@@ -11,7 +11,7 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
-import net.muniere.ponita.lib.Message
+import net.muniere.ponita.domain.Message
 
 fun main(args: Array<String>): Unit {
     EngineMain.main(args)
