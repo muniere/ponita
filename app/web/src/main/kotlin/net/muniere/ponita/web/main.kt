@@ -4,10 +4,11 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CallLogging
-import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
+import net.muniere.ponita.storage.DatabaseManager
+import net.muniere.ponita.storage.DatabaseManagerDefault
 import net.muniere.ponita.web.controller.RootController
 import net.muniere.ponita.web.dependency.DependencyGraph
 import org.koin.ktor.ext.Koin
@@ -21,9 +22,12 @@ fun main(args: Array<String>): Unit {
 @kotlin.jvm.JvmOverloads
 fun Application.launch(testing: Boolean = false) {
     install(Koin) {
-        modules(DependencyGraph.build())
+        modules(DependencyGraph.build(this@launch))
     }
+
     install(CallLogging)
+
+    inject<DatabaseManager>().value.bootstrap()
 }
 
 @Suppress("UNUSED_PARAMETER")

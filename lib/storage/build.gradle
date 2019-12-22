@@ -9,5 +9,12 @@ repositories {
 }
 
 dependencies {
+    implementation project(':lib:domain')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "com.h2database:h2:$h2_version"
+    implementation "org.xerial:sqlite-jdbc:$sqlite_version"
+    implementation "com.zaxxer:HikariCP:$hikari_version"
+    implementation "org.jetbrains.exposed:exposed:$exposed_version"
 }

@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     implementation project(':lib:domain')
+    implementation project(':lib:storage')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
