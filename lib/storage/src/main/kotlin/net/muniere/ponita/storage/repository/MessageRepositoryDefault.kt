@@ -62,7 +62,7 @@ public final class MessageRepositoryDefault : MessageRepository {
         return@transaction id.value
     }
 
-    override fun create(content: String): Message? = transaction {
+    override fun insertAndGet(content: String): Message? = transaction {
         val now = DateTime()
 
         val id = Messages.insertAndGetId {
@@ -83,6 +83,17 @@ public final class MessageRepositoryDefault : MessageRepository {
         }
 
         return@transaction affected
+    }
+
+    override fun updateAndGet(id: Int, content: String): Message? = transaction {
+        val now = DateTime()
+
+        Messages.update({ Messages.id eq id }) {
+            it[Messages.content] = content
+            it[Messages.updatedAt] = now
+        }
+
+        return@transaction find(id)
     }
 
     override fun delete(id: Int): Int = transaction {

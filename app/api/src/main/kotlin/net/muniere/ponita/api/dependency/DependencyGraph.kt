@@ -2,6 +2,7 @@ package net.muniere.ponita.api.dependency
 
 import io.ktor.application.Application
 import io.ktor.application.log
+import net.muniere.ponita.api.controller.MessageController
 import net.muniere.ponita.api.controller.RootController
 import net.muniere.ponita.service.MessageService
 import net.muniere.ponita.service.MessageServiceDefault
@@ -30,6 +31,7 @@ public final class DependencyGraph {
             singleBy<MessageRepository, MessageRepositoryDefault>()
             singleBy<MessageService, MessageServiceDefault>()
             single<RootController>()
+            single<MessageController>()
         }
     }
 }

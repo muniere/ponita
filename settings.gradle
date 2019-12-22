@@ -3,5 +3,6 @@ rootProject.name = "ponita"
 include(':lib:domain')
 include(':lib:storage')
 include(':lib:service')
+include(':lib:routing')
 include(':app:api')
 include(':app:web')

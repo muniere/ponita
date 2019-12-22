@@ -1,19 +1,16 @@
 package net.muniere.ponita.api
 
 import io.ktor.application.Application
-import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.application.log
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.routing.get
-import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
+import net.muniere.ponita.api.controller.MessageController
 import net.muniere.ponita.api.controller.RootController
 import net.muniere.ponita.api.dependency.DependencyGraph
+import net.muniere.ponita.routing.associate
 import net.muniere.ponita.storage.DatabaseManager
-import net.muniere.ponita.storage.DatabaseManagerDefault
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
 
@@ -38,11 +35,14 @@ fun Application.launch(testing: Boolean = false) {
 @Suppress("UNUSED_PARAMETER")
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
-    val ctrl: RootController by inject()
+    val root: RootController by inject()
+    val message: MessageController by inject()
 
-    routing {
-        get("/") {
-            ctrl.index(call)
-        }
+    associate {
+        get("/", root::index)
+        get("/messages", message::index)
+        post("/messages", message::create)
+        put("/messages/{id}", message::update)
+        delete("/messages/{id}", message::delete)
     }
 }

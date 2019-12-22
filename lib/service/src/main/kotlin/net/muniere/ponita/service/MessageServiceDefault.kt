@@ -2,7 +2,6 @@ package net.muniere.ponita.service
 
 import net.muniere.ponita.domain.Message
 import net.muniere.ponita.storage.repository.MessageRepository
-import net.muniere.ponita.storage.table.Messages
 
 public final class MessageServiceDefault(
     private val repository: MessageRepository
@@ -17,7 +16,11 @@ public final class MessageServiceDefault(
     }
 
     override fun create(content: String): Message? {
-        return this.repository.create(content)
+        return this.repository.insertAndGet(content)
+    }
+
+    override fun update(id: Int, content: String): Message? {
+        return this.repository.updateAndGet(id, content)
     }
 
     override fun delete(id: Int): Int {

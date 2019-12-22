@@ -6,5 +6,6 @@ public interface MessageService {
     public fun latest(): Message?
     public fun take(size: Int): List<Message>
     public fun create(content: String): Message?
+    public fun update(id: Int, content: String): Message?
     public fun delete(id: Int): Int
 }
